@@ -17,7 +17,13 @@ let profSchema = new Schema({
     type: Array,
     items : {
       type: String,
-      type: Int32(5)
+      type: Number,
+      validate: {
+        validator: function(value) {
+          return value >= 1 && value <= 5; // Define your range here
+        },
+        message: props => `${props.value} is not within the specified range (10 - 100).`,
+      },
     }
   }
 
