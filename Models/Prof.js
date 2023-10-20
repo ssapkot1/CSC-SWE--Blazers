@@ -13,8 +13,14 @@ let profSchema = new Schema({
   userID: {
     type: String
   },
-  review:
-    
+  reviews: { 
+    type: Array,
+    items : {
+      type: String,
+      type: Int32(5)
+    }
+  }
+
 }, {
     collection: 'profiles'
   })
