@@ -21,6 +21,9 @@ const app = express()
 // }
 
 // Connecting mongoDB Database
+
+mongoose.set('strictQuery', false)
+
 mongoose
     .connect(
         process.env.MONGODB_URI || 'mongodb+srv://test:test@cluster0.nfmkma3.mongodb.net/?retryWrites=true&w=majority',
