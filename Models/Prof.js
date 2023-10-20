@@ -9,7 +9,12 @@ let profSchema = new Schema({
   },
   password: {
     type: String
-  }
+  },
+  userID: {
+    type: String
+  },
+  review:
+    
 }, {
     collection: 'profiles'
   })
