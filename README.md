@@ -1,8 +1,14 @@
-AIT 624 Software Engineering Fundamentals Assignment #1
+AIT 624 Software Engineering Fundamentals
 # Project Title: CSC-SWE--Blazers
-#Team Members:
-#1. Shyam Sapkota
-#2. Ata Tangban
-#3. Aaron Hooper
-#4. Muhammad Uzair Ahmed Rajput
-#5. Pranay Ula 
+# Team Members:
+- Shyam Sapkota
+- Ata Tangban
+- Aaron Hooper
+- Muhammad Uzair Ahmed Rajput
+- Pranay Ula 
+
+# Pre Requisites
+Run npm i command to install dependencies on your server
+
+# Run Application
+Run npm start command to run the application
