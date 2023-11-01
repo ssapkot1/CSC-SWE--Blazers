@@ -7,11 +7,11 @@ import Col from 'react-bootstrap/Col'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-import CreatePost from './components/create-post.component'
+import AddMovie from './components/add-movie.component'
 
-import EditPost from './components/edit-post.component'
+import EditMovie from './components/edit-movies.component'
 
-import PostList from './components/post-list.component'
+import MoviesList from './components/movies-list.component'
 import CreateProfile from './components/create-profile.component'
 import ProfileList from './components/profile-list.component'
 import Login from './components/login.component'
@@ -24,7 +24,7 @@ function App() {
             <Container>
             <Navbar.Brand>
                 <Link to={'/create-profile'} className="nav-link">
-                  App working title
+                  Movie Recomendation System
                 </Link>
               </Navbar.Brand>
               <Nav className="justify-content-end">
@@ -34,8 +34,8 @@ function App() {
                   </Link>
                 </Nav>
                 <Nav>
-                  <Link to={'/create-post'} className="nav-link">
-                    Create Job Post
+                  <Link to={'/add-movie'} className="nav-link">
+                    Add Movie
                   </Link>
                 </Nav>
                 <Nav>
@@ -44,8 +44,8 @@ function App() {
                   </Link>
                 </Nav>
                 <Nav>
-                  <Link to={'/post-list'} className="nav-link">
-                    Job List
+                  <Link to={'/movies-list'} className="nav-link">
+                    Movie List
                   </Link>
                 </Nav>
                 <Nav>
@@ -74,8 +74,8 @@ function App() {
                   />
                    <Route
                     exact
-                    path="/create-post"
-                    component={(props) => <CreatePost {...props} />}
+                    path="/add-movie"
+                    component={(props) => <AddMovie {...props} />}
                   />
                   <Route
                     exact
@@ -84,8 +84,8 @@ function App() {
                   />
                    <Route
                     exact
-                    path="/post-list"
-                    component={(props) => <PostList {...props} />}
+                    path="/movies-list"
+                    component={(props) => <MoviesList {...props} />}
                   />
                   <Route
                     exact
@@ -94,8 +94,8 @@ function App() {
                   />
                   <Route
                     exact
-                    path="/edit-post/:id"
-                    component={(props) => <EditPost {...props} />}
+                    path="/edit-movie/:id"
+                    component={(props) => <EditMovie {...props} />}
                   />
                
                 </Switch>

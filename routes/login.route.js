@@ -3,7 +3,7 @@ let mongoose = require('mongoose'),
   router = express.Router();
 //login Model
 let loginSchema = require('../Models/Login');
-// CREATE Student
+// CREATE user
 router.route('/login').post((req, res, next) => {
   loginSchema.create(req.body, (error, data) => {
     if (error) {

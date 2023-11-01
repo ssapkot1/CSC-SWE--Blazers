@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
-import PostTableRow from './PostTableRow';
+import MoviesTableRow from './movies-TableRow';
 
-export default class PostList extends Component {
+export default class MoviesList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      posts: []
+      movies: []
     };
   }
   componentDidMount() {
  
-    axios.get('http://localhost:4000/posts/' )
+    axios.get('http://localhost:4000/movies/' )
     .then(res => {
       this.setState({
-        posts: res.data
+        movies: res.data
       });
     })
     .catch((error) => {
@@ -24,8 +24,8 @@ export default class PostList extends Component {
     
   }
   DataTable() {
-    return this.state.posts.map((res, i) => {
-      return <PostTableRow obj={res} key={i} />;
+    return this.state.movies.map((res, i) => {
+      return <MoviesTableRow obj={res} key={i} />;
     });
   }
 
@@ -34,15 +34,9 @@ export default class PostList extends Component {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Street</th>
+            <th>Title</th>
             
-            <th>City</th>
-            <th>State</th>
-            <th>Zip</th>
-            <th>Company</th>
-            <th>Job Title</th>
-            <th>Max Salary</th>
-            <th>Min Salary</th>
+            <th>Genre</th>
             
             <th>Action</th>
           </tr>
