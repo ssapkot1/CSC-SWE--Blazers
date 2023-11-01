@@ -9,7 +9,7 @@ const loginRoute = require('./routes/login.route')
 const profRoute = require('./routes/profile.route')
 const path = require('path')
 const app = express()
-
+mongoose.set('strictQuery', false);
 
 // Connecting mongoDB Database
 mongoose
