@@ -15,6 +15,7 @@ import MoviesList from './components/movies-list.component'
 import CreateProfile from './components/create-profile.component'
 import ProfileList from './components/profile-list.component'
 import Login from './components/login.component'
+import Search from './components/search.component1'
 function App() {
   return (
     <div className="App">
@@ -36,6 +37,11 @@ function App() {
                 <Nav>
                   <Link to={'/add-movie'} className="nav-link">
                     Add Movie
+                  </Link>
+                </Nav>
+                <Nav>
+                  <Link to={'/search'} className="nav-link">
+                    Search
                   </Link>
                 </Nav>
                 <Nav>
@@ -81,6 +87,11 @@ function App() {
                     exact
                     path="/login"
                     component={(props) => <Login {...props} />}
+                  />
+                  <Route
+                    exact
+                    path="/search"
+                    component={(props) => <Search {...props} />}
                   />
                    <Route
                     exact

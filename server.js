@@ -7,6 +7,7 @@ require('dotenv').config()
 const moviesRoute = require('./routes/movies.route')
 const loginRoute = require('./routes/login.route')
 const profRoute = require('./routes/profile.route')
+const searchRoute = require('./routes/search.route')
 const path = require('path')
 const app = express()
 mongoose.set('strictQuery', false);
@@ -29,6 +30,7 @@ app.use(cors())
 app.use('/logins', loginRoute)
 app.use('/profiles', profRoute)
 app.use('/movies', moviesRoute)
+app.use('/search', searchRoute)
 
 // PORT
 const port = process.env.PORT || 4000
