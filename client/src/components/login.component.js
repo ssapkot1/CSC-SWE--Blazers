@@ -43,6 +43,7 @@ export default class Login extends Component {
           <Form.Label>Email</Form.Label>
           <Form.Control type="text" value={this.state.email} onChange={this.onChangeLoginEmail} />
         </Form.Group>
+        
         <Form.Group controlId="Password">
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" value={this.state.password} onChange={this.onChangeLoginPassword} />

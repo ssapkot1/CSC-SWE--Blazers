@@ -19,7 +19,12 @@ export default class MoviesTableRow extends Component {
         return (
             <tr>
                 <td>{this.props.obj.title}</td>
-                <td>{this.props.obj.genre}</td>
+                <td>{this.props.obj.genres}</td>
+                <td>{this.props.obj.plot}</td>
+                <td>{this.props.obj.runtime}</td>
+                <td>{this.props.obj.cast}</td>
+                <td>{this.props.obj.imdb.rating}</td>
+                
                 
                 <td>
                     <Link className="edit-link" to={"/edit-movie/" + this.props.obj._id}>

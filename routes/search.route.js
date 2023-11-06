@@ -1,9 +1,8 @@
 let mongoose = require('mongoose'),
   express = require('express'),
   router = express.Router();
-let moviesSchema = require('../Models/Movies');
 
-router.route('/').post((req, res, next) => {
+router.route('/search').post((req, res, next) => {
   loginSchema.create(req.body, (error, data) => {
     if (error) {
       return next(error)

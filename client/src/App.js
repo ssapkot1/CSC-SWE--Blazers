@@ -10,12 +10,12 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import AddMovie from './components/add-movie.component'
 
 import EditMovie from './components/edit-movies.component'
-
+ 
 import MoviesList from './components/movies-list.component'
 import CreateProfile from './components/create-profile.component'
 import ProfileList from './components/profile-list.component'
 import Login from './components/login.component'
-import Search from './components/search.component1'
+import Search from './components/search.component'
 function App() {
   return (
     <div className="App">

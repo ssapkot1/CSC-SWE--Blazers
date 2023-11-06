@@ -38,12 +38,12 @@ export default class EditMovie extends Component {
  
   onSubmit(e) {
     e.preventDefault()
-    const studentObject = {
+    const movieObject = {
       title: this.state.title,
       genre: this.state.genre,
       
     };
-    axios.put('http://localhost:4000/movies/update-movies/' + this.props.match.params.id, studentObject)
+    axios.put('http://localhost:4000/movies/update-movies/' + this.props.match.params.id, movieObject)
       .then((res) => {
         console.log(res.data)
         console.log('Movie Posting successfully updated')

@@ -15,7 +15,7 @@ mongoose.set('strictQuery', false);
 // Connecting mongoDB Database
 mongoose
     .connect(
-        process.env.MONGODB_URI || 'mongodb+srv://test:test@cluster0.nfmkma3.mongodb.net/?retryWrites=true&w=majority',
+        process.env.MONGODB_URI || 'mongodb+srv://test:test@cluster0.nfmkma3.mongodb.net/sample_mflix',
     )
     .then((x) => {
         console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)

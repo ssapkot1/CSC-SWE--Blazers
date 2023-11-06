@@ -1,40 +1,92 @@
-import { useEffect, useState } from 'react';
+import React, { Component } from "react";
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
 import axios from 'axios';
-import styles from './SearchBar.module.css';
+import SearchTableRow from "./search-TableRow";
+export default class Search extends Component {
+  constructor(props) {
+    super(props)
+    // Setting up functions
+    this.onChangeSearch = this.onChangeSearch.bind(this);
+    
+    
+    this.onSubmit = this.onSubmit.bind(this);
+    // Setting up state
+    this.state = {
+      movies: [],
+      search: ''
+     
+    }
+    
+  
+    
+  }
+  onChangeSearch(e) {
+    this.setState({ search: e.target.value })
+  }
+  
 
-const SearchBar = () => {
-  const [value, setValue] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data } = await axios.get(
-          `http://localhost:4000/movies/search?q=${value}`
-        );
-
-        setSuggestions(data.movies);
-      } catch (error) {
+  onSubmit(e) {
+    e.preventDefault();
+  
+    // Extract the search query from the form input
+    const searchQuery = this.state.search;
+  
+    // Construct the URL to search for movies with titles containing the search query
+    const apiUrl = `http://localhost:4000/movies/?title=${searchQuery}`;
+  
+    axios.get(apiUrl)
+      .then(res => {
+        // Filter the movies based on the title containing the search query
+        const filteredMovies = res.data.filter(movie => movie.title.includes(searchQuery));
+        
+        this.setState({
+          movies: filteredMovies
+        });
+      })
+      .catch(error => {
         console.log(error);
-      }
-    };
+      });
+  }
 
-    fetchData();
-  }, [value]);
+  DataTable() {
+    return this.state.movies.map((res, i) => {
+      return <SearchTableRow obj={res} key={i} />;
+    });
 
-  return (
-    <div className={styles.container}>
-      <input
-        type="text"
-        className={styles.textbox}
-        placeholder="Search data..."
-        value={value}
-        onChange={(e) => {
-          setValue(e.target.value);
-        }}
-      />
-    </div>
-  );
-};
 
-export default SearchBar;
+
+  }
+
+  render() {
+    return (<div className="form-wrapper">
+      <Form onSubmit={this.onSubmit}>
+       
+        <Form.Group controlId="Title">
+          <Form.Label>Title</Form.Label>
+          <Form.Control type="text" value={this.state.search} onChange={this.onChangeSearch} />
+        </Form.Group>
+       
+        <Button variant="danger" size="lg" block="block" type="submit" className="mt-4">
+          Search
+        </Button>
+      </Form>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Title</th>
+            
+            <th>Genre</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          {this.DataTable()}
+        </tbody>
+      </Table>
+
+    </div>);
+    
+  }
+} 
