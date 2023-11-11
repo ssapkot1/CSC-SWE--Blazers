@@ -1,64 +1,45 @@
-let mongoose = require('mongoose'),
-  express = require('express'),
-  router = express.Router();
-// Profile Model
-let profSchema = require('../Models/Prof');
-// CREATE Profile
-router.route('/create-profile').post((req, res, next) => {
-  profSchema.create(req.body, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      console.log(data)
-      res.json(data)
-    }
-  })
-});
-// READ Profiles
-router.route('/').get((req, res) => {
-  profSchema.find((error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      res.json(data)
-    }
-  })
-})
-// Get Single Profile
-router.route('/edit-profile/:id').get((req, res) => {
-  profSchema.findById(req.params.id, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      res.json(data)
-    }
-  })
-})
+const express = require('express');
+const router = express.Router();
+const User = require('../models/User'); // Adjust path as necessary
+const authMiddleware = require('../middleware/authMiddleware'); // Your authentication middleware
 
-// Update Profile
-router.route('/update-profile/:id').put((req, res, next) => {
-  profSchema.findByIdAndUpdate(req.params.id, {
-    $set: req.body
-  }, (error, data) => {
-    if (error) {
-      return next(error);
-      console.log(error)
-    } else {
-      res.json(data)
-      console.log('profile updated successfully !')
+// GET current user's profile
+router.get('/current', authMiddleware, async (req, res, next) => {
+    try {
+        // Assuming the user ID is stored in req.user.id after successful authentication
+        const user = await User.findById(req.user.id).select('-password'); // Exclude password from the result
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+        res.json(user);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
     }
-  })
-})
-// Delete Profile
-router.route('/delete-profile/:id').delete((req, res, next) => {
-  profSchema.findByIdAndRemove(req.params.id, (error, data) => {
-    if (error) {
-      return next(error);
-    } else {
-      res.status(200).json({
-        msg: data
-      })
+});
+
+// UPDATE current user's profile
+router.put('/update', authMiddleware, async (req, res, next) => {
+    try {
+        // Extract fields to update from req.body
+        const { name, email } = req.body; // Add or remove fields based on your User model
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        // Update the user object
+        if (name) user.name = name;
+        if (email) user.email = email;
+        // Add other fields as necessary
+
+        await user.save();
+        res.json(user);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('Server Error');
     }
-  })
-})
+});
+
 module.exports = router;
