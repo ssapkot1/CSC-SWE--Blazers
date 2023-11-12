@@ -85,4 +85,17 @@ router.route('/recommendation').get((req, res, next) => {
   });
 });
 
+router.get('/details/:id', async (req, res) => {
+  try {
+    const movie = await moviesSchema.findById(req.params.id);
+    if (!movie) {
+      return res.status(404).json({ msg: 'Movie not found' });
+    }
+    res.json(movie);
+  } catch (error) {
+    console.error('Error fetching movie details:', error);
+    res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;

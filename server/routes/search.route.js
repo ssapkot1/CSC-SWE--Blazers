@@ -1,19 +1,8 @@
-let mongoose = require('mongoose'),
-  express = require('express'),
-  router = express.Router();
+const express = require('express');
+const router = express.Router();
+const searchController = require('../controllers/searchController');
 
-router.route('/search').post((req, res, next) => {
-  loginSchema.create(req.body, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      console.log(data)
-      res.json(data)
-    }
-  })
-});
-
-
-
+// Search movies
+router.get('/', searchController.searchMovies);
 
 module.exports = router;

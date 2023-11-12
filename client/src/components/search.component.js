@@ -1,92 +1,46 @@
-import React, { Component } from "react";
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button';
-import Table from 'react-bootstrap/Table';
+import React, { useState } from 'react';
 import axios from 'axios';
-import SearchTableRow from "./search-TableRow";
-export default class Search extends Component {
-  constructor(props) {
-    super(props)
-    // Setting up functions
-    this.onChangeSearch = this.onChangeSearch.bind(this);
-    
-    
-    this.onSubmit = this.onSubmit.bind(this);
-    // Setting up state
-    this.state = {
-      movies: [],
-      search: ''
-     
+import { useHistory } from 'react-router-dom'; // Import useHistory
+
+const SearchComponent = () => {
+  const [term, setTerm] = useState('');
+  const [results, setResults] = useState([]);
+  const history = useHistory(); // Initialize useHistory
+
+  const onSearch = async () => {
+    try {
+      const response = await axios.get(`http://localhost:4000/search?term=${term}`);
+      setResults(response.data);
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+      // Handle error
     }
-    
-  
-    
-  }
-  onChangeSearch(e) {
-    this.setState({ search: e.target.value })
-  }
-  
+  };
 
-  onSubmit(e) {
-    e.preventDefault();
-  
-    // Extract the search query from the form input
-    const searchQuery = this.state.search;
-  
-    // Construct the URL to search for movies with titles containing the search query
-    const apiUrl = `http://localhost:4000/movies/?title=${searchQuery}`;
-  
-    axios.get(apiUrl)
-      .then(res => {
-        // Filter the movies based on the title containing the search query
-        const filteredMovies = res.data.filter(movie => movie.title.includes(searchQuery));
-        
-        this.setState({
-          movies: filteredMovies
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+  // New function to handle clicking on a search result
+  const onResultClick = (movieId) => {
+    history.push(`/movie/details/${movieId}`); // Redirect to the movie details page
+  };
 
-  DataTable() {
-    return this.state.movies.map((res, i) => {
-      return <SearchTableRow obj={res} key={i} />;
-    });
+  return (
+    <div>
+      <input
+        type="text"
+        value={term}
+        onChange={(e) => setTerm(e.target.value)}
+        placeholder="Search for a movie..."
+      />
+      <button onClick={onSearch}>Search</button>
+      <ul>
+        {results.map((movie) => (
+          // Update the list item to be clickable
+          <li key={movie._id} onClick={() => onResultClick(movie._id)} style={{ cursor: 'pointer' }}>
+            {movie.title}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
-
-
-  }
-
-  render() {
-    return (<div className="form-wrapper">
-      <Form onSubmit={this.onSubmit}>
-       
-        <Form.Group controlId="Title">
-          <Form.Label>Title</Form.Label>
-          <Form.Control type="text" value={this.state.search} onChange={this.onChangeSearch} />
-        </Form.Group>
-       
-        <Button variant="danger" size="lg" block="block" type="submit" className="mt-4">
-          Search
-        </Button>
-      </Form>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Title</th>
-            
-            <th>Genre</th>
-            
-          </tr>
-        </thead>
-        <tbody>
-          {this.DataTable()}
-        </tbody>
-      </Table>
-
-    </div>);
-    
-  }
-} 
+export default SearchComponent;

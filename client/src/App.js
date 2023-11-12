@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-ro
 import ProfileComponent from './components/profile.component';
 import UserComponent from './components/user.component';
 import Search from './components/search.component';
+import MovieDetailsComponent from './components/movie-details.component';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Navbar from 'react-bootstrap/Navbar';
@@ -52,6 +53,7 @@ function App() {
                   <Route path="/login" component={UserComponent} />
                   <Route path="/profile" component={ProfileComponent} />
                   <Route path="/search" component={Search} />
+                  <Route path="/movies/details/:id" component={MovieDetailsComponent} />
                   <Route render={() => <Redirect to="/" />} />
                 </Switch>
               </div>
