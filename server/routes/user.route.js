@@ -105,28 +105,40 @@ router.delete('/delete-user/:id', async (req, res, next) => {
   }
 });
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-
+    // Find the user by email
+    let user = await User.findOne({ email: req.body.email });
     if (!user) {
-      return res.status(401).json({ msg: 'Invalid credentials' });
+      return res.status(400).json({ msg: 'User with this email does not exist.' });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    // Compare the submitted password with the stored hash
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ msg: 'Invalid credentials' });
+      return res.status(400).json({ msg: 'Invalid credentials.' });
     }
 
-    // If you're using JWT tokens
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    return res.json({ token });
+    // Define the payload for the JWT
+    const payload = {
+      user: {
+        id: user._id // Make sure you use the property that contains the user's ID
+      }
+    };
 
-    // Or just send a success response if not using tokens
-    res.json({ msg: 'Logged in successfully' });
-  } catch (error) {
-    next(error);
+    // Sign the token with the secret key
+    jwt.sign(
+      payload,
+      process.env.JWT_SECRET, // The secret key from your .env file
+      { expiresIn: 3600 }, // Token expiry time
+      (err, token) => {
+        if (err) throw err;
+        res.json({ token }); // Send the token back to the client
+      }
+    );
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
   }
 });
 

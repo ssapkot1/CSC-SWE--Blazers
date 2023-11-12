@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User'); // Adjust path as necessary
+const User = require('../Models/User'); // Adjust path as necessary
 const authMiddleware = require('../middleware/authMiddleware'); // Your authentication middleware
 
 // GET current user's profile

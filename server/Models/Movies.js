@@ -44,4 +44,4 @@ let moviesSchema = new Schema(
         collection: 'movies',
     },
 )
-module.exports = mongoose.model('Movies', moviesSchema)
+module.exports = mongoose.models.movies || mongoose.model('movies', moviesSchema);
