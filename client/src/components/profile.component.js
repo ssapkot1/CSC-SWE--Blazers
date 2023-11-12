@@ -78,39 +78,57 @@ const ProfileComponent = () => {
     return <div>Loading...</div>;
   }
 
-  const handleGetSuggestion = () => {
-    // Implement functionality to get a movie suggestion
-    console.log('Get a movie suggestion');
+  const handleGetSuggestion = async () => {
+    try {
+      // Fetch user data
+      const userDataResponse = await axios.get('http://localhost:4000/profile/current', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      setUserData(userDataResponse.data);
+
+      // Fetch a random movie
+      const recommendationResponse = await axios.get('http://localhost:4000/movies/recommendation', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      setRandomMovie(recommendationResponse.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      history.push('/login'); // Redirect to login on error
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="profile-wrapper">
       <h1>User Profile</h1>
-      {userData && ratingsCount < 20 && (
-        <p>Movies rated: {ratingsCount} / 20. Rate {20 - ratingsCount} more movies to get a suggestion!</p>
-      )}
-      {userData && ratingsCount >= 20 && (
-        <Button variant="success" onClick={handleGetSuggestion}>Get Suggestion</Button>
-      )}
       {userData ? (
         <>
           <p>Name: {userData.name}</p>
           <p>Email: {userData.email}</p>
-          {randomMovie ? (
-            <div>
-              <h2>Rate a Movie</h2>
-              <Rating movie={randomMovie} onRate={handleRateMovie} />
-              {userRating !== null && <p>You rated this movie: {userRating} / 10</p>}
-            </div>
+          {ratingsCount < 20 ? (
+            <p>Movies rated: {ratingsCount} / 20. Rate {20 - ratingsCount} more movies to get a suggestion!</p>
           ) : (
-            <p>Loading new movie...</p> // Show loading state while fetching new movie
+            <Button variant="success" onClick={handleGetSuggestion}>Get Suggestion</Button>
+          )}
+          {randomMovie && (
+            <div>
+              <h2>{ratingsCount >= 20 ? 'Your Movie Suggestion' : 'Rate a Movie'}</h2>
+              <p>{randomMovie.title}</p>
+              {ratingsCount < 20 && (
+                <Rating movie={randomMovie} onRate={handleRateMovie} />
+              )}
+            </div>
           )}
           <Button variant="danger" onClick={handleLogout}>Logout</Button>
         </>
       ) : (
         <p>User data not found.</p>
       )}
-
     </div>
   );
   

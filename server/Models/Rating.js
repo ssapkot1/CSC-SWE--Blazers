@@ -11,4 +11,4 @@ const ratingSchema = new Schema({
   ratings: [movieRatingSchema]
 });
 
-module.exports = mongoose.model('Rating', ratingSchema);
+module.exports = mongoose.models.ratings || mongoose.model('ratings', ratingSchema);
