@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
 const router = express.Router();
-
+const jwt = require('jsonwebtoken');
 const User = require('../Models/User');
 
 // Validation rules
@@ -120,8 +120,8 @@ router.post('/login', async (req, res, next) => {
     }
 
     // If you're using JWT tokens
-    // const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    // return res.json({ token });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    return res.json({ token });
 
     // Or just send a success response if not using tokens
     res.json({ msg: 'Logged in successfully' });
