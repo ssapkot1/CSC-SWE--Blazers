@@ -1,6 +1,6 @@
 // controllers/ratingController.js
-const UserRating = require('../models/Rating'); // Assuming UserRating is the model with user and ratings array
-const Movie = require('../models/Movies');
+const UserRating = require('../Models/Rating'); // Assuming UserRating is the model with user and ratings array
+const Movie = require('../Models/Movies');
 
 exports.rateMovie = async (req, res) => {
   try {

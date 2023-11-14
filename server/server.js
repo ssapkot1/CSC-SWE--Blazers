@@ -2,7 +2,7 @@ let express = require('express')
 let mongoose = require('mongoose')
 const createError = require('http-errors');
 let cors = require('cors')
-let bodyParser = require('body-parser')
+
 require('dotenv').config()
 // Express Route
 const profileRoutes = require('./routes/profile.route');
@@ -28,7 +28,8 @@ mongoose
         console.error('Error connecting to mongo', err.reason)
     })
 
-app.use(bodyParser.json())
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cors())
 app.use('/movies', moviesRoute)

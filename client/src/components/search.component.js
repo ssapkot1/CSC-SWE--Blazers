@@ -19,7 +19,8 @@ const SearchComponent = () => {
 
   // New function to handle clicking on a search result
   const onResultClick = (movieId) => {
-    history.push(`/movie/details/${movieId}`); // Redirect to the movie details page
+    console.log(movieId)
+    history.push(`/movies/details/${movieId}`); // Redirect to the movie details page
   };
 
   return (
