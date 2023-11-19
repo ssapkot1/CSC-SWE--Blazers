@@ -1,12 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
-const CreateUserComponent = ({ onSwitchMode }) => {
+const CreateUserComponent = ({ onSwitchMode}) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory(); // Get the history object
+
+  useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem('token'));
+    // Redirect to the profile page if the user is logged in
+    if (isLoggedIn) {
+      history.push('/profile');
+      // Show an alert to notify the user
+      alert('You are already logged in. Redirecting to your profile.');
+    }
+  }, [isLoggedIn, history]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -14,6 +27,7 @@ const CreateUserComponent = ({ onSwitchMode }) => {
       .then(res => {
         console.log('User created:', res.data);
         onSwitchMode(); // Switch to login mode after user creation
+        
       })
       .catch(err => {
         console.error('Error:', err);
@@ -57,9 +71,7 @@ const CreateUserComponent = ({ onSwitchMode }) => {
         <Button variant="danger" size="lg" block="block" type="submit">
           Create User
         </Button>
-        <Button onClick={onSwitchMode} variant="secondary" size="lg" block="block" className="mt-3">
-          Already have an account? Login
-        </Button>
+       
       </Form>
     </div>
   );

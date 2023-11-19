@@ -2,10 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Rating from './rating.component'; // Import the Rating component
 
 const MovieDetailsComponent = () => {
   const { id } = useParams();  // Destructure the parameter as `id`
   const [movieDetails, setMovieDetails] = useState(null);
+  const [userRating, setUserRating] = useState(null); // State to store user rating
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -24,6 +26,23 @@ const MovieDetailsComponent = () => {
   if (!movieDetails) {
     return <div>Loading...</div>;
   }
+
+  const handleRateMovie = async (movieId, rating) => {
+    try {
+      const response = await axios.post('http://localhost:4000/ratings', {
+        movieId: movieId,
+        rating: rating
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      console.log('Movie rated successfully:', response.data);
+      setUserRating(rating); // Update the state to reflect the new rating
+    } catch (error) {
+      console.error('Error rating movie:', error);
+    }
+  };
 
   return (
     <div>
@@ -45,6 +64,8 @@ const MovieDetailsComponent = () => {
       <p><strong>Rotten Tomatoes Viewer Score:</strong> {movieDetails.tomatoes && movieDetails.tomatoes.viewer ? `${movieDetails.tomatoes.viewer.rating}/10` : 'N/A'}</p>
       <p><strong>Number of Comments:</strong> {movieDetails.num_mflix_comments}</p>
       {/* Add more details as needed */}
+      <Rating movie={movieDetails} onRate={handleRateMovie} />
+      {userRating !== null && <p>You rated this movie: {userRating} / 10</p>}
     </div>
   );
 };

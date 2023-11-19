@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-const LoginComponent = ({ onSwitchMode }) => {
+const LoginComponent = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
+
+  useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem('token'));
+    // Redirect to the profile page if the user is logged in
+    if (isLoggedIn) {
+      history.push('/profile');
+      // Show an alert to notify the user
+      alert('You are already logged in. Redirecting to your profile.');
+    }
+  }, [isLoggedIn, history]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -45,9 +56,7 @@ const LoginComponent = ({ onSwitchMode }) => {
         <Button variant="danger" size="lg" block="block" type="submit">
           Login
         </Button>
-        <Button onClick={onSwitchMode} variant="secondary" size="lg" block="block" className="mt-3">
-          Create a new account
-        </Button>
+       
       </Form>
     </div>
   );

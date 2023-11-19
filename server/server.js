@@ -2,8 +2,9 @@ let express = require('express')
 let mongoose = require('mongoose')
 const createError = require('http-errors');
 let cors = require('cors')
+const dotenv = require('dotenv');
 
-require('dotenv').config()
+dotenv.config();
 // Express Route
 const profileRoutes = require('./routes/profile.route');
 const moviesRoute = require('./routes/movies.route')
