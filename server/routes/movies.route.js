@@ -1,7 +1,7 @@
 let mongoose = require('mongoose'),
   express = require('express'),
   router = express.Router();
-  const recommendationController = require('../controllers/recommendationController'); // Adjust the path as necessary
+  const recommendationController = require('../controllers/recommendationController');
 
 //movie Model
 let moviesSchema = require('../Models/Movies');
@@ -69,21 +69,9 @@ router.route('/random').get((req, res, next) => {
   });
 });
 
-router.route('/recommendation').get((req, res, next) => {
-  moviesSchema.aggregate([
-    { $sample: { size: 1 } }
-  ]).exec((error, data) => {
-    if (error) {
-      return next(error);
-    } else {
-      if (data.length) {
-        res.json(data[0]); // Send the single movie object, not an array
-      } else {
-        res.status(404).json({ msg: 'No movies found' });
-      }
-    }
-  });
-});
+router.route('/recommendation').get(recommendationController.getMovieRecommendation);
+
+
 
 router.get('/details/:id', async (req, res) => {
   try {

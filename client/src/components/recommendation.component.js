@@ -17,10 +17,12 @@ const RecommendationComponent = () => {
     const fetchMovie = async () => {
         setIsLoading(true);
         try {
+            const isLoggedIn = !!localStorage.getItem('token');
+            
             let url;
             if (isLoggedIn) {
                 // Fetch personalized recommendation from the server
-                url = 'http://localhost:4000/recommendation';
+                url = 'http://localhost:4000/movies/recommendation';
             } else {
                 // Fetch a random movie suggestion from the server
                 url = 'http://localhost:4000/movies/random'; // Update this URL as needed
@@ -31,6 +33,7 @@ const RecommendationComponent = () => {
                 }
             });
             setMovie(response.data);
+            console.log(movie)
         } catch (error) {
             console.error('Error fetching movie:', error);
             if (!isLoggedIn) {
