@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import { Container } from 'react-bootstrap'; // Import Container from React Bootstrap
+import { BrowserRouter as Router, Switch, Route, Redirect, useHistory } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 import ProfileComponent from './components/profile.component';
 import LoginComponent from './components/login.component';
 import CreateUserComponent from './components/create-user.component';
@@ -14,12 +14,29 @@ import './App.css';
 import NavigationBar from './components/navbar.component';
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
-
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const history = useHistory(); // Assuming you are using React Router
+  
     useEffect(() => {
-        // Check if the user is logged in by looking for a token in localStorage
-        setIsLoggedIn(!!localStorage.getItem('token'));
+      const validateToken = (token) => {
+        // Implement token validation logic here
+      };
+  
+      const token = localStorage.getItem('token');
+      if (token && validateToken(token)) {
+        setIsLoggedIn(true);
+      } else {
+        localStorage.removeItem('token');
+        setIsLoggedIn(false);
+      }
     }, []);
+  
+    useEffect(() => {
+      if (isLoggedIn) {
+        history.push('/profile');
+        alert('You are already logged in. Redirecting to your profile.');
+      }
+    }, [isLoggedIn, history]);
 
     return (
         <div className="App">

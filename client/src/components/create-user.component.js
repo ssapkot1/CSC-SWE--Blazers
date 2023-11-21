@@ -13,6 +13,9 @@ const CreateUserComponent = ({ onSwitchMode}) => {
 
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('token'));
+  
+    
+
     // Redirect to the profile page if the user is logged in
     if (isLoggedIn) {
       history.push('/profile');
