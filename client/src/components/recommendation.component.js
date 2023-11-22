@@ -50,12 +50,15 @@ const RecommendationComponent = () => {
 
     return (
         <div className="recommendation-wrapper">
-            {movie ? (
+           {movie ? (
                 <div>
                     <h1>{isLoggedIn ? 'Your Personalized Recommendation' : 'Random Movie Suggestion'}</h1>
                     <p>Title: {movie.title}</p>
-                    <p>Summary: {movie.plot}</p>
-                    {/* Add more movie details display as needed */}
+                    <p>Summary: {movie.overview}</p>
+                    {/* Display movie poster if available */}
+                    {movie.poster_path && (
+                        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={`Poster of ${movie.title}`} />
+                    )}
                 </div>
             ) : (
                 <p>No movie data available.</p>
