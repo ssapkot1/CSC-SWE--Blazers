@@ -8,7 +8,12 @@ AIT 624 Software Engineering Fundamentals
 - Pranay Ula 
 
 # Pre Requisites
-Run npm i command to install dependencies on your server
+cd server yarn install
+
+cd client yarn install
+
 
 # Run Application
-Run npm start command to run the application
+cd server yarn start
+
+cd client yarn start
