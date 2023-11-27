@@ -2,9 +2,10 @@
 const Movie = require('../Models/Movies'); // Assuming this is the correct path
 const Rating = require('../Models/Rating'); // Assuming this is the correct path
 const axios = require('axios');
+require('dotenv').config();
 exports.getMovieRecommendation = async (req, res) => {
   try {
-    const apiKey = 'cba3a67952cafc295156d92ceaa0b396';
+    const apiKey = process.env.TMDB_API_KEY;
     const userId = req.params.userId;
    
 
