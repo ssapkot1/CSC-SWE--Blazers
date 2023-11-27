@@ -54,7 +54,17 @@ const RecommendationComponent = () => {
                 <div>
                     <h1>{isLoggedIn ? 'Your Personalized Recommendation' : 'Random Movie Suggestion'}</h1>
                     <p>Title: {movie.title}</p>
-                    <p>Summary: {movie.overview}</p>
+                    <p>
+                    {isLoggedIn ? (
+                        <>
+                            Summary: {movie.overview}
+                        </>
+                    ) : (
+                        <>
+                            Summary: {movie.plot}
+                        </>
+                    )}
+                </p>
                     {/* Display movie poster if available */}
                     {movie.poster_path && (
                         <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={`Poster of ${movie.title}`} />
