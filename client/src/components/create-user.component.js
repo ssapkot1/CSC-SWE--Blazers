@@ -4,14 +4,18 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-const LoginComponent = () => {
+const CreateUserComponent = ({ onSwitchMode}) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory();
+  const history = useHistory(); // Get the history object
 
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('token'));
+  
+    
+
     // Redirect to the profile page if the user is logged in
     if (isLoggedIn) {
       history.push('/profile');
@@ -22,19 +26,33 @@ const LoginComponent = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:4000/users/login', { email, password })
+    axios.post('http://localhost:4000/users/create-user', { name, email, password })
       .then(res => {
-        localStorage.setItem('token', res.data.token);
-        history.push('/profile');
+        console.log('User created:', res.data);
+        onSwitchMode(); // Switch to login mode after user creation
+        
       })
       .catch(err => {
         console.error('Error:', err);
       });
+
+    setName('');
+    setEmail('');
+    setPassword('');
   };
 
   return (
     <div className="form-wrapper">
       <Form onSubmit={onSubmit}>
+        <Form.Group controlId="Name">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </Form.Group>
+
         <Form.Group controlId="Email">
           <Form.Label>Email</Form.Label>
           <Form.Control
@@ -54,7 +72,7 @@ const LoginComponent = () => {
         </Form.Group>
 
         <Button variant="danger" size="lg" block="block" type="submit">
-          Login
+          Create User
         </Button>
        
       </Form>
@@ -62,4 +80,4 @@ const LoginComponent = () => {
   );
 };
 
-export default LoginComponent;
+export default CreateUserComponent;
