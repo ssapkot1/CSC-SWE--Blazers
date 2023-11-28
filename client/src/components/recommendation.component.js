@@ -22,10 +22,10 @@ const RecommendationComponent = () => {
             let url;
             if (isLoggedIn) {
                 // Fetch personalized recommendation from the server
-                url = 'http://localhost:4000/movies/recommendation';
+                url = 'https://movie-recommedation-system-server.onrender.com/movies/recommendation';
             } else {
                 // Fetch a random movie suggestion from the server
-                url = 'http://localhost:4000/movies/random'; // Update this URL as needed
+                url = 'https://movie-recommedation-system-server.onrender.com/movies/random'; // Update this URL as needed
             }
             const response = await axios.get(url, {
                 headers: {

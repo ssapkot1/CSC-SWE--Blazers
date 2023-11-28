@@ -12,7 +12,7 @@ const MovieDetailsComponent = () => {
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/movies/details/${id}`);
+        const response = await axios.get(`https://movie-recommedation-system-server.onrender.com/movies/details/${id}`);
         setMovieDetails(response.data);
       } catch (error) {
         console.error('Error fetching movie details:', error);
@@ -29,7 +29,7 @@ const MovieDetailsComponent = () => {
 
   const handleRateMovie = async (movieId, rating) => {
     try {
-      const response = await axios.post('http://localhost:4000/ratings', {
+      const response = await axios.post('https://movie-recommedation-system-server.onrender.com/ratings', {
         movieId: movieId,
         rating: rating
       }, {

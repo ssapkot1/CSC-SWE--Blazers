@@ -11,7 +11,7 @@ const ProfileComponent = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/profile/current', {
+        const response = await axios.get('https://movie-recommedation-system-server.onrender.com/profile/current', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
