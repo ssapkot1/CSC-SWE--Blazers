@@ -22,7 +22,7 @@ const LoginComponent = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:4000/users/login', { email, password })
+    axios.post('https://movie-recommedation-system-server.onrender.com/users/login', { email, password })
       .then(res => {
         localStorage.setItem('token', res.data.token);
         history.push('/profile');

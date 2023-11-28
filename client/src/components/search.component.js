@@ -9,7 +9,7 @@ const SearchComponent = () => {
 
   const onSearch = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/search?term=${term}`);
+      const response = await axios.get(`https://movie-recommedation-system-server.onrender.com/search?term=${term}`);
       setResults(response.data);
     } catch (error) {
       console.error('Error fetching search results:', error);
