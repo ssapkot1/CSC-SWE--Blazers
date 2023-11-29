@@ -12,10 +12,10 @@ const LoginComponent = () => {
 
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('token'));
-    // Redirect to the profile page if the user is logged in
+
     if (isLoggedIn) {
       history.push('/profile');
-      // Show an alert to notify the user
+
       alert('You are already logged in. Redirecting to your profile.');
     }
   }, [isLoggedIn, history]);

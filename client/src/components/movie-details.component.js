@@ -8,8 +8,10 @@ const MovieDetailsComponent = () => {
   const { id } = useParams();  // Destructure the parameter as `id`
   const [movieDetails, setMovieDetails] = useState(null);
   const [userRating, setUserRating] = useState(null); // State to store user rating
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem('token')); 
     const fetchMovieDetails = async () => {
       try {
         const response = await axios.get(`https://movie-recommedation-system-server.onrender.com/movies/details/${id}`);
@@ -47,6 +49,13 @@ const MovieDetailsComponent = () => {
   return (
     <div>
       <h1>{movieDetails.title}</h1>
+      <p>
+      {isLoggedIn ? (
+      <>
+      <Rating movie={movieDetails} onRate={handleRateMovie} />
+      {userRating !== null && <p>You rated this movie: {userRating} / 10</p>}
+      </>
+      ) : (<></>) }</p>
       <p><strong>Plot:</strong> {movieDetails.plot}</p>
       <p><strong>Full Plot:</strong> {movieDetails.fullplot}</p>
       <p><strong>Genres:</strong> {movieDetails.genres.join(', ')}</p>
@@ -63,9 +72,7 @@ const MovieDetailsComponent = () => {
       <p><strong>Type:</strong> {movieDetails.type}</p>
       <p><strong>Rotten Tomatoes Viewer Score:</strong> {movieDetails.tomatoes && movieDetails.tomatoes.viewer ? `${movieDetails.tomatoes.viewer.rating}/10` : 'N/A'}</p>
       <p><strong>Number of Comments:</strong> {movieDetails.num_mflix_comments}</p>
-      {/* Add more details as needed */}
-      <Rating movie={movieDetails} onRate={handleRateMovie} />
-      {userRating !== null && <p>You rated this movie: {userRating} / 10</p>}
+     
     </div>
   );
 };
