@@ -5,7 +5,7 @@ const axios = require('axios');
 require('dotenv').config();
 exports.getMovieRecommendation = async (req, res) => {
   try {
-    const apiKey = process.env.TMDB_API_KEY;
+    const apiKey = "cba3a67952cafc295156d92ceaa0b396";
     const userId = req.params.userId;
    
 
