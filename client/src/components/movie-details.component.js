@@ -12,9 +12,11 @@ const MovieDetailsComponent = () => {
 
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('token')); 
+    console.log('Inside Compo Details');
     const fetchMovieDetails = async () => {
       try {
         const response = await axios.get(`https://movie-recommedation-system-server.onrender.com/movies/details/${id}`);
+        console.log('response data');
         setMovieDetails(response.data);
       } catch (error) {
         console.error('Error fetching movie details:', error);
