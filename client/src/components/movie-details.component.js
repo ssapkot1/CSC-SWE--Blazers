@@ -14,7 +14,7 @@ const MovieDetailsComponent = () => {
     setIsLoggedIn(!!localStorage.getItem('token')); 
     const fetchMovieDetails = async () => {
       try {
-        const response = await axios.get(`https://movie-recommedation-system-server.onrender.com/movies/details/${id}`);
+        const response = await axios.get(`https://sebackend-awzz.onrender.com/movies/details/${id}`);
         setMovieDetails(response.data);
       } catch (error) {
         console.error('Error fetching movie details:', error);
@@ -31,7 +31,7 @@ const MovieDetailsComponent = () => {
 
   const handleRateMovie = async (movieId, rating) => {
     try {
-      const response = await axios.post('https://movie-recommedation-system-server.onrender.com/ratings', {
+      const response = await axios.post('/ratings', {
         movieId: movieId,
         rating: rating
       }, {

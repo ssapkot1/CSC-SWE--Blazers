@@ -9,7 +9,7 @@ const SearchComponent = () => {
 
   const onSearch = async () => {
     try {
-      const response = await axios.get(`https://movie-recommedation-system-server.onrender.com/search?term=${term}`);
+      const response = await axios.get(`https://sebackend-awzz.onrender.com/search?term=${term}`);
       setResults(response.data);
     } catch (error) {
       console.error('Error fetching search results:', error);
@@ -20,7 +20,7 @@ const SearchComponent = () => {
   // New function to handle clicking on a search result
   const onResultClick = (movieId) => {
     console.log(movieId)
-    history.push(`/movies/details/${movieId}`); // Redirect to the movie details page
+    history.push(`https://sebackend-zdf9.onrender.com/movies/details/${movieId}`); // Redirect to the movie details page
   };
 
   return (

@@ -26,7 +26,7 @@ const CreateUserComponent = ({ onSwitchMode}) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://movie-recommedation-system-server.onrender.com/users/create-user', { name, email, password })
+    axios.post('https://sebackend-awzz.onrender.com/users/create-user', { name, email, password })
       .then(res => {
         console.log('User created:', res.data);
         onSwitchMode(); // Switch to login mode after user creation

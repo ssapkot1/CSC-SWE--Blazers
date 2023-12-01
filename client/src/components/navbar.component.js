@@ -11,7 +11,7 @@ const NavigationBar = () => {
 
           <Nav.Link as={Link} to="/search">Search</Nav.Link>
           <Nav.Link as={Link} to="/recommendation">Recommendations</Nav.Link>
-          <Nav.Link as={Link} to="/profile">Home</Nav.Link>
+          <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
           <Nav.Link as={Link} to="/login">Login</Nav.Link>
           <Nav.Link as={Link} to="/create-user">Register</Nav.Link>
         </Nav>

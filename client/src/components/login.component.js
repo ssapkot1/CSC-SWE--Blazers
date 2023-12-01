@@ -14,7 +14,7 @@ const LoginComponent = () => {
     setIsLoggedIn(!!localStorage.getItem('token'));
 
     if (isLoggedIn) {
-      history.push('/profile');
+      history.push('https://sebackend-awzz.onrender.com/profile');
 
       alert('You are already logged in. Redirecting to your profile.');
     }
@@ -22,7 +22,7 @@ const LoginComponent = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://movie-recommedation-system-server.onrender.com/users/login', { email, password })
+    axios.post('https://sebackend-awzz.onrender.com/users/login', { email, password })
       .then(res => {
         localStorage.setItem('token', res.data.token);
         history.push('/profile');

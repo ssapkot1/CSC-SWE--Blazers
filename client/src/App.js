@@ -46,7 +46,7 @@ function App() {
 
                 <Container>
                     <Switch>
-                        <Route exact path="/" component={Search} />
+                        <Route exact path="/" component={RecommendationComponent} />
                         <Route path="/login" component={LoginComponent} />
                         <Route path="/create-user" component={CreateUserComponent} />
 
