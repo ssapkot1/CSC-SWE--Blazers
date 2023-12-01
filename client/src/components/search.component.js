@@ -20,7 +20,7 @@ const SearchComponent = () => {
   // New function to handle clicking on a search result
   const onResultClick = (movieId) => {
     console.log(movieId)
-    history.push(`https://sebackend-zdf9.onrender.com/movies/details/${movieId}`); // Redirect to the movie details page
+    history.push(`https://blazeback.onrender.com/movies/details/${movieId}`); // Redirect to the movie details page
   };
 
   return (
