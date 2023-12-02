@@ -12,14 +12,14 @@ const ProfileComponent = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('https://sebackend-awzz.onrender.com/profile/current', {
+        const response = await axios.get('https://blazeback.onrender.com/profile/current', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
         });
         setUserData(response.data);
         console.log(response.data._id);
-        const userRatings = await axios.get(`https://sebackend-awzz.onrender.com/ratings/${response.data._id}`, {
+        const userRatings = await axios.get(`https://blazeback.onrender.com/ratings/${response.data._id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }

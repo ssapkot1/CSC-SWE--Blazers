@@ -14,7 +14,7 @@ const MovieDetailsComponent = () => {
     setIsLoggedIn(!!localStorage.getItem('token')); 
     const fetchMovieDetails = async () => {
       try {
-        const response = await axios.get(`https://sebackend-awzz.onrender.com/movies/details/${id}`);
+        const response = await axios.get(`https://blazeback.onrender.com/movies/details/${id}`);
         setMovieDetails(response.data);
       } catch (error) {
         console.error('Error fetching movie details:', error);

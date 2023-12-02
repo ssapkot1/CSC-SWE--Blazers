@@ -14,7 +14,7 @@ const LoginComponent = () => {
     setIsLoggedIn(!!localStorage.getItem('token'));
 
     if (isLoggedIn) {
-      history.push('https://sebackend-awzz.onrender.com/profile');
+      history.push('https://blazeback.onrender.comprofile');
 
       alert('You are already logged in. Redirecting to your profile.');
     }
@@ -22,7 +22,7 @@ const LoginComponent = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://sebackend-awzz.onrender.com/users/login', { email, password })
+    axios.post('https://blazeback.onrender.com/users/login', { email, password })
       .then(res => {
         localStorage.setItem('token', res.data.token);
         history.push('/profile');
