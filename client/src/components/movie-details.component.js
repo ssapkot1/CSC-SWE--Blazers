@@ -31,7 +31,7 @@ const MovieDetailsComponent = () => {
 
   const handleRateMovie = async (movieId, rating) => {
     try {
-      const response = await axios.post('/ratings', {
+      const response = await axios.post('https://blazeback.onrender.com/ratings', {
         movieId: movieId,
         rating: rating
       }, {
