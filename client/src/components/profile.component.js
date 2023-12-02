@@ -19,16 +19,24 @@ const ProfileComponent = () => {
         });
         setUserData(response.data);
         console.log(response.data._id);
-        const userRatings = await axios.get(`https://blazeback.onrender.com/ratings/${response.data._id}`, {
+        const userRatings = await axios.get(`https://blazeback.onrender.com/ratings/6552bfa9c21c1ae07e181d8f`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
         });
         if (userRatings.data.message.length > 0) {
-          console.log(userRatings.data.message[0].ratings);
-          setUserRatedMovies(userRatings.data.message[0].ratings);
+          let ratingDetails = [];
+          for (let i=0; i<userRatings.data.message[0].ratings.length; i++) {
+            let r = userRatings.data.message[0].ratings[i];
+            const movie = await axios.get(`https://blazeback.onrender.com/movies/details/${r.movie}`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+              }
+            });
+            ratingDetails.push({movie: movie.data.title, rating: r.rating})
+          }
+          setUserRatedMovies(ratingDetails);
         }
-        console.log(userRatings.data.message);
       } catch (error) {
         console.error('Error fetching user data:', error);
         history.push('/login'); // Redirect to login on error
