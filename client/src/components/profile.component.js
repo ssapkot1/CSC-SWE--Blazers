@@ -19,7 +19,8 @@ const ProfileComponent = () => {
         });
         setUserData(response.data);
         console.log(response.data._id);
-        const userRatings = await axios.get(`https://blazeback.onrender.com/ratings/6552bfa9c21c1ae07e181d8f`, {
+        const userId = response.data._id;
+        const userRatings = await axios.get(`https://blazeback.onrender.com/ratings/${userId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
