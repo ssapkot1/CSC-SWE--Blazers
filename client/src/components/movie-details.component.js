@@ -7,6 +7,7 @@ import Rating from './rating.component'; // Import the Rating component
 const MovieDetailsComponent = () => {
   const { id } = useParams();  // Destructure the parameter as `id`
   const [movieDetails, setMovieDetails] = useState(null);
+  const [movieRatings, setMovieRatings] = useState([]);
   const [userRating, setUserRating] = useState(null); // State to store user rating
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -22,7 +23,19 @@ const MovieDetailsComponent = () => {
       }
     };
 
+    const fetchMovieRatings = async () => {
+      try {
+        const response = await axios.get(`http://localhost:4000/ratings/movies/${id}`);
+        console.log(response.data);
+        setMovieRatings(response.data);
+      } catch (error) {
+        console.error('Error fetching movie details:', error);
+        // handle error
+      }
+    };
+
     fetchMovieDetails();
+    fetchMovieRatings();
   }, [id]);  // Dependency array with `id` to re-fetch if the id changes
 
   if (!movieDetails) {
@@ -56,6 +69,18 @@ const MovieDetailsComponent = () => {
       {userRating !== null && <p>You rated this movie: {userRating} / 10</p>}
       </>
       ) : (<></>) }</p>
+      <table>
+        <tr>
+          <th>User</th>
+          <th>Rating</th>
+        </tr>
+        {movieRatings.message.map((mr) => (
+          <tr>
+            <td>{mr.email}</td>
+            <td>{mr.rating}</td>
+          </tr>
+        ))}
+      </table>
       <p><strong>Plot:</strong> {movieDetails.plot}</p>
       <p><strong>Full Plot:</strong> {movieDetails.fullplot}</p>
       <p><strong>Genres:</strong> {movieDetails.genres.join(', ')}</p>
