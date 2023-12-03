@@ -26,8 +26,9 @@ const MovieDetailsComponent = () => {
     const fetchMovieRatings = async () => {
       try {
         const response = await axios.get(`https://blazeback.onrender.com/ratings/movies/${id}`);
-        console.log(response.data);
-        setMovieRatings(response.data);
+        console.log(response.data.message);
+        setMovieRatings(response.data.message);
+        console.log(movieRatings);
       } catch (error) {
         console.error('Error fetching movie details:', error);
         // handle error
@@ -74,7 +75,7 @@ const MovieDetailsComponent = () => {
           <th>User</th>
           <th>Rating</th>
         </tr>
-        {movieRatings.message.map((mr) => (
+        {movieRatings.map((mr) => (
           <tr>
             <td>{mr.email}</td>
             <td>{mr.rating}</td>
