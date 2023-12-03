@@ -25,7 +25,7 @@ const MovieDetailsComponent = () => {
 
     const fetchMovieRatings = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/ratings/movies/${id}`);
+        const response = await axios.get(`https://blazeback.onrender.com/ratings/movies/${id}`);
         console.log(response.data);
         setMovieRatings(response.data);
       } catch (error) {
