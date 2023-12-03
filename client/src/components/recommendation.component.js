@@ -21,11 +21,9 @@ const RecommendationComponent = () => {
             
             let url;
             if (isLoggedIn) {
-                // Fetch personalized recommendation from the server
                 url = 'https://blazeback.onrender.com/movies/recommendation';
             } else {
-                // Fetch a random movie suggestion from the server
-                url = 'https://blazeback.onrender.com/movies/random'; // Update this URL as needed
+                url = 'https://blazeback.onrender.com/movies/random';
             }
             const response = await axios.get(url, {
                 headers: {
@@ -65,7 +63,6 @@ const RecommendationComponent = () => {
                         </>
                     )}
                 </p>
-                    {/* Display movie poster if available */}
                     {movie.poster_path && (
                         <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={`Poster of ${movie.title}`} />
                     )}
@@ -76,5 +73,4 @@ const RecommendationComponent = () => {
         </div>
     );
 };
-
 export default RecommendationComponent;

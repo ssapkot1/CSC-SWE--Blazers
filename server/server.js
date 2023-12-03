@@ -1,10 +1,9 @@
 let express = require('express')
 let mongoose = require('mongoose')
 let cors = require('cors')
-// const dotenv = require('dotenv');
+const dotenv = require('dotenv');
+dotenv.config();
 
-// dotenv.config();
-// Express Route
 const profileRoutes = require('./routes/profile.route');
 const moviesRoute = require('./routes/movies.route')
 const searchRoute = require('./routes/search.route')
@@ -39,18 +38,9 @@ app.use('/profile', profileRoutes)
 app.use('/users',userRoute)
 app.use('/ratings', ratingRoutes);
 
-// PORT
-const port = process.env.PORT || 4000
+
+const port = process.env.PORT
 const server = app.listen(port, () => {
     console.log('Connected to port ' + port)
 })
 
-// // 404 Error
-// app.use((req, res, next) => {
-//     next(createError(404))
-// })
-// app.use(function (err, req, res, next) {
-//     console.error(err.message)
-//     if (!err.statusCode) err.statusCode = 500
-//     res.status(err.statusCode).send(err.message)
-// })

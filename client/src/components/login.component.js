@@ -12,10 +12,8 @@ const LoginComponent = () => {
 
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('token'));
-
     if (isLoggedIn) {
       history.push('https://blazeback.onrender.comprofile');
-
       alert('You are already logged in. Redirecting to your profile.');
     }
   }, [isLoggedIn, history]);

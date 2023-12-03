@@ -1,4 +1,4 @@
-// routes/ratingRoutes.js
+
 const express = require('express');
 const { rateMovie } = require('../controllers/ratingController');
 const { getRatingsByUser } = require('../controllers/getRatingsController');

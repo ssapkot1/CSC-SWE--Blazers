@@ -3,9 +3,9 @@ let mongoose = require('mongoose'),
   router = express.Router();
   const recommendationController = require('../controllers/recommendationController');
 
-//movie Model
+
 let moviesSchema = require('../Models/Movies');
-// CREATE movie
+
 router.route('/add-movie').post((req, res, next) => {
   moviesSchema.create(req.body, (error, data) => {
     if (error) {
@@ -16,7 +16,7 @@ router.route('/add-movie').post((req, res, next) => {
     }
   })
 });
-// READ movies
+
 router.route('/').get((req, res) => {
   moviesSchema.find((error, data) => {
     if (error) {
@@ -26,7 +26,7 @@ router.route('/').get((req, res) => {
     }
   })
 });
-// Update movie
+
 router.route('/update-movie/:id').put((req, res, next) => {
   moviesSchema.findByIdAndUpdate(req.params.id, {
     $set: req.body
@@ -40,7 +40,7 @@ router.route('/update-movie/:id').put((req, res, next) => {
     }
   })
 })
-// Delete movie
+
 router.route('/delete-movie/:id').delete((req, res, next) => {
   moviesSchema.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
@@ -61,7 +61,7 @@ router.route('/random').get((req, res, next) => {
       return next(error);
     } else {
       if (data.length) {
-        res.json(data[0]); // Send the single movie object, not an array
+        res.json(data[0]); 
       } else {
         res.status(404).json({ msg: 'No movies found' });
       }

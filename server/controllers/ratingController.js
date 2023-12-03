@@ -1,5 +1,4 @@
-// controllers/ratingController.js
-const UserRating = require('../Models/Rating'); // Assuming UserRating is the model with user and ratings array
+const UserRating = require('../Models/Rating');
 const Movie = require('../Models/Movies');
 
 exports.rateMovie = async (req, res) => {
@@ -7,7 +6,7 @@ exports.rateMovie = async (req, res) => {
     const { movieId, rating } = req.body;
     const userId = req.user.id;
 
-    // Validate movieId and rating
+
     if (!movieId) {
       return res.status(400).json({ message: 'Movie ID is required.' });
     }
@@ -21,31 +20,28 @@ exports.rateMovie = async (req, res) => {
       return res.status(400).json({ message: 'Rating must be between 1 and 10.' });
     }
 
-    // Check if the movie exists
     const movie = await Movie.findById(movieId);
     if (!movie) {
       return res.status(404).json({ message: 'Movie not found.' });
     }
 
-    // Find or create the user's rating document
+
     const userRatingDoc = await UserRating.findOneAndUpdate(
       { user: userId },
       { $setOnInsert: { user: userId, ratings: [] } },
       { new: true, upsert: true }
     );
 
-    // Check if the movie has already been rated by the user
     const movieRatingIndex = userRatingDoc.ratings.findIndex(r => r.movie.equals(movieId));
 
     if (movieRatingIndex > -1) {
-      // Update existing rating
+
       userRatingDoc.ratings[movieRatingIndex].rating = ratingValue;
     } else {
-      // Add new rating
+
       userRatingDoc.ratings.push({ movie: movieId, rating: ratingValue });
     }
 
-    // Save the updated document
     await userRatingDoc.save();
 
     res.json({ message: 'Rating saved successfully' });

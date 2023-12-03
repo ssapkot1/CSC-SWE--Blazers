@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Rating from './rating.component'; // Import the Rating component
+import Rating from './rating.component';
 
 const MovieDetailsComponent = () => {
-  const { id } = useParams();  // Destructure the parameter as `id`
+  const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
   const [movieRatings, setMovieRatings] = useState([]);
-  const [userRating, setUserRating] = useState(null); // State to store user rating
+  const [userRating, setUserRating] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -19,7 +19,6 @@ const MovieDetailsComponent = () => {
         setMovieDetails(response.data);
       } catch (error) {
         console.error('Error fetching movie details:', error);
-        // handle error
       }
     };
 
@@ -31,13 +30,12 @@ const MovieDetailsComponent = () => {
         console.log(movieRatings);
       } catch (error) {
         console.error('Error fetching movie details:', error);
-        // handle error
       }
     };
 
     fetchMovieDetails();
     fetchMovieRatings();
-  }, [id]);  // Dependency array with `id` to re-fetch if the id changes
+  }, [id]); 
 
   if (!movieDetails) {
     return <div>Loading...</div>;
@@ -54,7 +52,7 @@ const MovieDetailsComponent = () => {
         }
       });
       console.log('Movie rated successfully:', response.data);
-      setUserRating(rating); // Update the state to reflect the new rating
+      setUserRating(rating);
     } catch (error) {
       console.error('Error rating movie:', error);
     }

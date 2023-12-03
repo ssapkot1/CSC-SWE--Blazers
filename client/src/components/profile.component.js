@@ -40,7 +40,7 @@ const ProfileComponent = () => {
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
-        history.push('/login'); // Redirect to login on error
+        history.push('/login');
       } finally {
         setIsLoading(false);
       }
@@ -90,5 +90,4 @@ const ProfileComponent = () => {
     </div>
   );
 };
-
 export default ProfileComponent;

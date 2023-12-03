@@ -1,5 +1,4 @@
-// controllers/ratingController.js
-const UserRating = require('../Models/Rating'); // Assuming UserRating is the model with user and ratings array
+const UserRating = require('../Models/Rating');
 const Movie = require('../Models/Movies');
 const User = require('../Models/User');
 const { ObjectId } = require('mongodb');

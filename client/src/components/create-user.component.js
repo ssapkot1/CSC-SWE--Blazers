@@ -9,17 +9,13 @@ const CreateUserComponent = ({ onSwitchMode}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory(); // Get the history object
+  const history = useHistory(); 
 
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('token'));
   
-    
-
-    // Redirect to the profile page if the user is logged in
     if (isLoggedIn) {
       history.push('/profile');
-      // Show an alert to notify the user
       alert('You are already logged in. Redirecting to your profile.');
     }
   }, [isLoggedIn, history]);
@@ -28,11 +24,7 @@ const CreateUserComponent = ({ onSwitchMode}) => {
     e.preventDefault();
     axios.post('https://blazeback.onrender.com/users/create-user', { name, email, password })
       .then(res => {
-        console.log('User created:', res.data);
-        
         history.push('/login'); 
-  
-        // Clear the form fields
         setName('');
         setEmail('');
         setPassword('');

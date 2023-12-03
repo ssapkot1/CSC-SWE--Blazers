@@ -6,8 +6,7 @@ import App from './App';
 
 
 const container = document.getElementById('root');
-const root = createRoot(container); // create the root
-
+const root = createRoot(container);
 root.render(
     <BrowserRouter>
       <App />

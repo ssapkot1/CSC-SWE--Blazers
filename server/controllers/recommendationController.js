@@ -1,11 +1,10 @@
-// controllers/recommendationController.js
-const Movie = require('../Models/Movies'); // Assuming this is the correct path
-const Rating = require('../Models/Rating'); // Assuming this is the correct path
+const Movie = require('../Models/Movies'); 
+const Rating = require('../Models/Rating'); 
 const axios = require('axios');
 require('dotenv').config();
 exports.getMovieRecommendation = async (req, res) => {
   try {
-    const apiKey = "cba3a67952cafc295156d92ceaa0b396";
+    const apiKey = process.env.API_KEY;
     const userId = req.params.userId;
    
 
@@ -14,10 +13,9 @@ exports.getMovieRecommendation = async (req, res) => {
     console.log(response);
 
     if (moviesFromAPI.length > 0) {
-      // Pick a random movie from the array
       const randomIndex = Math.floor(Math.random() * moviesFromAPI.length);
       const randomMovie = moviesFromAPI[randomIndex];
-      res.json(randomMovie); // Send the randomly selected movie as the response
+      res.json(randomMovie);
     } else {
       res.status(404).json({ message: 'No movies available.' });
     }
