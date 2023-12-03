@@ -29,16 +29,17 @@ const CreateUserComponent = ({ onSwitchMode}) => {
     axios.post('https://blazeback.onrender.com/users/create-user', { name, email, password })
       .then(res => {
         console.log('User created:', res.data);
-        onSwitchMode(); // Switch to login mode after user creation
         
+        history.push('/login'); 
+  
+        // Clear the form fields
+        setName('');
+        setEmail('');
+        setPassword('');
       })
       .catch(err => {
         console.error('Error:', err);
       });
-
-    setName('');
-    setEmail('');
-    setPassword('');
   };
 
   return (
